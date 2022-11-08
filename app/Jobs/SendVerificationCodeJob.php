@@ -33,10 +33,11 @@ class SendVerificationCodeJob implements ShouldQueue
     public function handle()
     {
         $code = random_int(1000, 9999);
+        $phone = phone($this->phone, 'TJ')->formatE164();
 
         User::updateOrCreate(
-            ['phone' => phone($this->phone)->formatE164()],
-            ['phone_verification_code' => '1234']
+            ['phone' => $phone],
+            ['phone' => $phone, 'phone_verification_code' => '1234']
         );
     }
 }
