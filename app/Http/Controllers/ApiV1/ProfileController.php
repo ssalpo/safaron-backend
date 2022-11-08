@@ -31,19 +31,14 @@ class ProfileController extends Controller
      * Обновляет профиль
      *
      * @param ProfileUpdateRequest $request
-     * @return void
+     * @return UserResource
      */
-    public function update(ProfileUpdateRequest $request): void
+    public function update(ProfileUpdateRequest $request): UserResource
     {
         $data = $request->validated();
 
-        if($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo');
-        }
+        $user = $this->userService->update(auth()->id(), $data);
 
-        $this->userService->update(
-            auth()->id(),
-            $data
-        );
+        return UserResource::make($user);
     }
 }

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class UserService
 {
     public function __construct(
-        private ThumbnailService $thumbnailService
+        private ImageService $imageService
     )
     {
     }
@@ -21,41 +21,36 @@ class UserService
      *
      * @param string $id
      * @param array $data
-     * @return void
+     * @return User
      */
-    public function update(string $id, array $data = []): void
+    public function update(string $id, array $data = []): User
     {
         $user = User::findOrFail($id);
 
         /** @var UploadedFile $photo */
         if ($photo = Arr::get($data, 'photo')) {
-            $pathToSave = 'public/user/photos/';
+            $pathToSave = 'user/photos/';
 
-            $extension = $photo->getClientOriginalExtension();
-
-            $photoName = sprintf('%s.%s', Str::uuid(), $extension);
-
-            $data['photo'] = $photoName;
-
-            // Удаляем фотографию, если ранее был добавлен
-            if ($user->photo) {
-                Storage::disk()->delete([
-                    $pathToSave . $user->photo,
-                    $pathToSave . '/thumbnails/' . $user->photo
-                ]);
-            }
-
-            // Сохраняем оригинальное фото
-            $photo->storeAs($pathToSave, $photoName);
-
-            $this->thumbnailService->create(
-                Storage::disk()->path($pathToSave . $photoName),
-                240,
-                240,
-                Storage::disk()->path($pathToSave . 'thumbnails/' . $photoName)
+            $fileName = $this->imageService->uploadImageWithThumbnail(
+                $photo,
+                $pathToSave
             );
+
+            if ($fileName !== false) {
+                $data['photo'] = $fileName;
+
+                // Удаляем фотографию, если ранее был добавлен
+                if ($user->photo) {
+                    Storage::disk('public')->delete([
+                        $pathToSave . $user->photo,
+                        $pathToSave . 'thumbnails/' . $user->photo
+                    ]);
+                }
+            }
         }
 
         $user->update($data);
+
+        return $user;
     }
 }

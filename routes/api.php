@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiV1\CarController;
 use App\Http\Controllers\ApiV1\PhoneVerificationController;
 use App\Http\Controllers\ApiV1\ProfileController;
 use Illuminate\Http\Request;
@@ -20,6 +21,10 @@ Route::post('/phone/send-verification-code', [PhoneVerificationController::class
 Route::post('/phone/verify-code', [PhoneVerificationController::class, 'verifyCode']);
 
 Route::middleware('auth:sanctum')->group(static function () {
-    Route::get('/profile', [ProfileController::class, 'show']);
-    Route::put('/profile', [ProfileController::class, 'update']);
+    Route::prefix('/profile')->group(static function () {
+        Route::get('/', [ProfileController::class, 'show']);
+        Route::put('/', [ProfileController::class, 'update']);
+
+        Route::apiResource('cars', CarController::class)->except('show');
+    });
 });
