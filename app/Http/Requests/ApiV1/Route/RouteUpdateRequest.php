@@ -5,7 +5,7 @@ namespace App\Http\Requests\ApiV1\Route;
 use App\Rules\IsUserCar;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RouteStoreRequest extends FormRequest
+class RouteUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,12 @@ class RouteStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'locations' => 'required|array',
-            'locations.*.from_place_id' => 'required|uuid|exists:places,id',
-            'locations.*.to_place_id' => 'required|uuid|exists:places,id',
             'go_time' => 'required|date|date_format:Y-m-d H:i',
             'car_id' => ['required', 'uuid', new IsUserCar],
             'free_places' => 'required|numeric|min:1|max:10',
             'fast_reservation' => 'required|boolean',
             'baggage_transportation' => 'required|boolean',
             'description' => 'nullable|string',
-            'price' => 'required|numeric',
         ];
     }
 }

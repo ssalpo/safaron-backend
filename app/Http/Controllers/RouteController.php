@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ApiV1\Route\RouteStoreRequest;
+use App\Http\Requests\ApiV1\Route\RouteUpdateRequest;
 use App\Http\Resources\ApiV1\RouteResource;
 use App\Models\Route;
 use App\Services\RouteService;
@@ -55,6 +56,20 @@ class RouteController extends Controller
     {
         return RouteResource::make(
             Route::forUser()->with(['routeLocations'])->findOrFail($id)
+        );
+    }
+
+    /**
+     * Обновляет данные поездки
+     *
+     * @param string $id
+     * @param RouteUpdateRequest $request
+     * @return RouteResource
+     */
+    public function update(string $id, RouteUpdateRequest $request): RouteResource
+    {
+        return RouteResource::make(
+            $this->routeService->update($id, $request->validated())
         );
     }
 }
