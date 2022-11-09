@@ -11,6 +11,8 @@ class RouteLocation extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
+    protected $with = ['fromPlace', 'toPlace'];
+
     protected $fillable = [
         'route_id',
         'from_place_id',

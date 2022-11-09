@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ApiV1\Route\RouteStoreRequest;
 use App\Http\Resources\ApiV1\RouteResource;
+use App\Models\Route;
 use App\Services\RouteService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RouteController extends Controller
 {
@@ -13,6 +15,21 @@ class RouteController extends Controller
         private RouteService $routeService
     )
     {
+    }
+
+    /**
+     * Возвращает список всех поездок
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function index(): AnonymousResourceCollection
+    {
+        $routes = Route::forUser()
+            ->with(['routeLocations'])
+            ->filter()
+            ->get();
+
+        return RouteResource::collection($routes);
     }
 
     /**
@@ -25,6 +42,19 @@ class RouteController extends Controller
     {
         return RouteResource::make(
             $this->routeService->store($request->validated())
+        );
+    }
+
+    /**
+     * Просмотр поездки
+     *
+     * @param string $id
+     * @return RouteResource
+     */
+    public function show(string $id): RouteResource
+    {
+        return RouteResource::make(
+            Route::forUser()->with(['routeLocations'])->findOrFail($id)
         );
     }
 }

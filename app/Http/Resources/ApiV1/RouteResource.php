@@ -23,6 +23,7 @@ class RouteResource extends JsonResource
             'baggage_transportation' => $this->baggage_transportation,
             'description' => $this->description,
             'price' => $this->price,
+            'status' => $this->status,
         ];
     }
 }
