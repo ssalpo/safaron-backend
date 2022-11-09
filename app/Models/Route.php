@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,14 @@ class Route extends Model
     public const STATUS_COMPLETED = 2;
     public const STATUS_CANCELED = 3;
 
+    public const CANCEL_REASONS = [
+        1 => 'Мои планы изменились',
+        2 => 'Хочу изменить поездку',
+        3 => 'Мало пассажиров',
+        4 => 'Сломался автомобиль',
+        5 => 'Другое',
+    ];
+
     protected $fillable = [
         'go_time',
         'user_id',
@@ -24,6 +33,9 @@ class Route extends Model
         'baggage_transportation',
         'description',
         'price',
+        'status',
+        'cancel_reason',
+        'cancel_description',
     ];
 
     protected $casts = [
@@ -34,6 +46,13 @@ class Route extends Model
     ];
 
     protected $dates = ['go_time'];
+
+    public function isCancel(): Attribute
+    {
+        return Attribute::get(
+            static fn($value, $attributes) => $attributes['status'] === self::STATUS_CANCELED
+        );
+    }
 
     public function scopeForUser($q, $userId = null): void
     {

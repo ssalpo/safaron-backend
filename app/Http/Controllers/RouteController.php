@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ApiV1\Route\RouteCancelRequest;
 use App\Http\Requests\ApiV1\Route\RouteStoreRequest;
 use App\Http\Requests\ApiV1\Route\RouteUpdateRequest;
 use App\Http\Resources\ApiV1\RouteResource;
@@ -71,5 +72,17 @@ class RouteController extends Controller
         return RouteResource::make(
             $this->routeService->update($id, $request->validated())
         );
+    }
+
+    /**
+     * Отменяет поездку
+     *
+     * @param RouteCancelRequest $request
+     * @param string $id
+     * @return void
+     */
+    public function cancel(RouteCancelRequest $request, string $id): void
+    {
+        $this->routeService->cancel($id, $request->validated());
     }
 }

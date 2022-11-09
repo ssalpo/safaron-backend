@@ -24,6 +24,8 @@ return new class extends Migration
             $table->text('description')->nullable()->comment('Комментарий к поездке');
             $table->integer('price')->default(0)->comment('Цена поездки');
             $table->tinyInteger('status')->default(\App\Models\Route::STATUS_ACTIVE);
+            $table->text('cancel_reason')->nullable();
+            $table->text('cancel_description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

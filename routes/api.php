@@ -22,6 +22,7 @@ Route::post('/phone/send-verification-code', [PhoneVerificationController::class
 Route::post('/phone/verify-code', [PhoneVerificationController::class, 'verifyCode']);
 
 Route::middleware('auth:sanctum')->group(static function () {
+    Route::post('/routes/{route}/cancel', [RouteController::class, 'cancel']);
     Route::apiResource('routes', RouteController::class)->except(['destroy']);
 
     Route::prefix('/profile')->group(static function () {
