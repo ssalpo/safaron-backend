@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cars', function (Blueprint $table) {
+        Schema::create('route_locations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->string('photo')->nullable();
-            $table->string('number_of_seats')->default(4);
+            $table->foreignUuid('route_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('from_place_id')->constrained('places')->onDelete('cascade');
+            $table->foreignUuid('to_place_id')->constrained('places')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cars');
+        Schema::dropIfExists('route_locations');
     }
 };
