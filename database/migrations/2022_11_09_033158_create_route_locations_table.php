@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('route_locations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('route_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('from_place_id')->constrained('places')->onDelete('cascade');
-            $table->foreignUuid('to_place_id')->constrained('places')->onDelete('cascade');
+            $table->foreignUuid('route_id')->constrained();
+            $table->foreignUuid('from_place_id')->constrained('places');
+            $table->foreignUuid('to_place_id')->constrained('places');
             $table->timestamps();
             $table->softDeletes();
         });

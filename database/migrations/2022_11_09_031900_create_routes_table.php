@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('routes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamp('go_time')->comment('Дата и время поездки');
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('car_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('car_id')->constrained();
             $table->tinyInteger('free_places')->default(1)->comment('Количество свободных мест');
             $table->boolean('fast_reservation')->default(true)->comment('Мгновенное бронирование');
             $table->boolean('baggage_transportation')->default(true)->comment('Перевозка багажа');
