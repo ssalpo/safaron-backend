@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group(static function () {
     Route::post('/routes/{route}/cancel', [RouteController::class, 'cancel']);
     Route::apiResource('routes', RouteController::class)->except(['destroy']);
 
-    Route::apiResource('reservations', ReservationController::class)->only(['store']);
+    Route::apiResource('reservations', ReservationController::class)->only(['index', 'store']);
 
     Route::prefix('/profile')->group(static function () {
         Route::get('/', [ProfileController::class, 'show']);

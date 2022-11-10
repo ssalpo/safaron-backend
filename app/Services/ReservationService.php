@@ -18,7 +18,7 @@ class ReservationService
 
         $data = ['user_id' => auth()->id(), 'status' => $status] + $data;
 
-        $totalReservedSeats = $route->reservations->sum('number_of_seats');
+        $totalReservedSeats = $route->reservations->where('status', Reservation::STATUS_CONFIRMED)->sum();
 
         // Водитель не может бронировать свою же поездку
         abort_if(

@@ -69,6 +69,11 @@ class Route extends Model
         $q->when(request('status'), static fn($q, $v) => $q->whereStatus($v));
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function routeLocations()
     {
         return $this->hasMany(RouteLocation::class);
