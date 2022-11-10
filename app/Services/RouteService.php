@@ -17,7 +17,10 @@ class RouteService
     public function store(array $data): Route
     {
         return DB::transaction(static function () use ($data) {
-            $route = Route::create(['user_id' => auth()->id()] + $data);
+            $route = Route::create([
+                    'user_id' => auth()->id(),
+                    'status' => Route::STATUS_ACTIVE
+                ] + $data);
 
             $route->routeLocations()->createMany($data['locations']);
 

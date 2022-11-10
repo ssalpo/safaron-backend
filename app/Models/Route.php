@@ -73,4 +73,9 @@ class Route extends Model
     {
         return $this->hasMany(RouteLocation::class);
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

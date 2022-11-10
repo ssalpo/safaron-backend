@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiV1\CarController;
 use App\Http\Controllers\ApiV1\PhoneVerificationController;
 use App\Http\Controllers\ApiV1\ProfileController;
+use App\Http\Controllers\ApiV1\ReservationController;
 use App\Http\Controllers\RouteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,8 @@ Route::post('/phone/verify-code', [PhoneVerificationController::class, 'verifyCo
 Route::middleware('auth:sanctum')->group(static function () {
     Route::post('/routes/{route}/cancel', [RouteController::class, 'cancel']);
     Route::apiResource('routes', RouteController::class)->except(['destroy']);
+
+    Route::apiResource('reservations', ReservationController::class)->only(['store']);
 
     Route::prefix('/profile')->group(static function () {
         Route::get('/', [ProfileController::class, 'show']);
