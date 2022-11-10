@@ -4,8 +4,12 @@ namespace App\Http\Resources\ApiV1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Http\Resources\Traits\DynamicHideResource;
+
 class UserResource extends JsonResource
 {
+    use DynamicHideResource;
+
     /**
      * Transform the resource into an array.
      *
@@ -14,12 +18,12 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        return $this->filterFields([
             'id' => $this->id,
             'name' => $this->name,
             'phone' => $this->phone,
             'birthday' => $this->birthday?->format('d-m-Y'),
             'gender' => $this->gender,
-        ];
+        ]);
     }
 }

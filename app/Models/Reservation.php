@@ -20,4 +20,19 @@ class Reservation extends Model
         'number_of_seats',
         'status',
     ];
+
+    public function scopeForUser($q, $userId = null): void
+    {
+        $q->where('user_id', $userId ?? auth()->id());
+    }
+
+    public function route()
+    {
+        return $this->belongsTo(Route::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

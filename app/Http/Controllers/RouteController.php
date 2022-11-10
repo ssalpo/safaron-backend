@@ -56,7 +56,7 @@ class RouteController extends Controller
     public function show(string $id): RouteResource
     {
         return RouteResource::make(
-            Route::forUser()->with(['routeLocations'])->findOrFail($id)
+            Route::forUser()->with(['routeLocations', 'reservations.user'])->findOrFail($id)
         );
     }
 

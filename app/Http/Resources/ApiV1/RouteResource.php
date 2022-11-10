@@ -24,6 +24,7 @@ class RouteResource extends JsonResource
             'description' => $this->description,
             'price' => $this->price,
             'status' => $this->status,
+            'reservations' => ReservationResource::collection($this->whenLoaded('reservations'))
         ];
     }
 }
