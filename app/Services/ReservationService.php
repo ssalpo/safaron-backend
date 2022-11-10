@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Reservation;
 use App\Models\Route;
+use Illuminate\Support\Arr;
 
 class ReservationService
 {
@@ -42,5 +43,45 @@ class ReservationService
         );
 
         return Reservation::create($data);
+    }
+
+    /**
+     * Отменяет поездку пассажира
+     *
+     * @param string $id
+     * @param array $data
+     * @return void
+     */
+    public function cancelPassengerReservation(string $id, array $data = []): void
+    {
+        $route = Reservation::forUser(Arr::get($data, 'user_id'))->findOrFail($id);
+
+        if ($route->status === Reservation::STATUS_CANCEL_BY_DRIVER) {
+            abort(403, 'Водитель уже отменил бронирование.');
+        }
+
+        $route->update(['status' => Reservation::STATUS_CANCEL_BY_PASSENGER]);
+    }
+
+    /**
+     * Отмена поездки пассажира водителем
+     *
+     * @param string $routeId
+     * @param string $reservationId
+     * @param array $data
+     * @return void
+     */
+    public function cancelDriverReservation(string $routeId, string $reservationId, array $data = []): void
+    {
+        $route = Reservation::whereHas(
+            'route', static fn($q) => $q->where('id', $routeId)
+            ->where('user_id', Arr::get($data, 'user_id', auth()->id()))
+        )->findOrFail($reservationId);
+
+        if ($route->status === Reservation::STATUS_CANCEL_BY_PASSENGER) {
+            abort(403, 'Пассажир уже отменил бронирование.');
+        }
+
+        $route->update(['status' => Reservation::STATUS_CANCEL_BY_DRIVER]);
     }
 }

@@ -36,4 +36,15 @@ class ReservationController extends Controller
             $this->reservationService->store($request->validated())
         );
     }
+
+    /**
+     * Отменяет бронирование
+     *
+     * @param string $id
+     * @return void
+     */
+    public function destroy(string $id): void
+    {
+        $this->reservationService->cancelPassengerReservation($id);
+    }
 }

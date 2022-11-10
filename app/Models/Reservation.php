@@ -13,6 +13,8 @@ class Reservation extends Model
 
     public const STATUS_UNDER_CONSIDERATION = 1;
     public const STATUS_CONFIRMED = 2;
+    public const STATUS_CANCEL_BY_PASSENGER = 3;
+    public const STATUS_CANCEL_BY_DRIVER = 4;
 
     protected $fillable = [
         'route_id',

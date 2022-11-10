@@ -75,7 +75,7 @@ class RouteController extends Controller
     }
 
     /**
-     * Отменяет поездку
+     * Отменяет поездку водителя
      *
      * @param RouteCancelRequest $request
      * @param string $id

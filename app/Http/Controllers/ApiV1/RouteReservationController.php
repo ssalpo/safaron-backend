@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Controllers\ApiV1;
+
+use App\Http\Controllers\Controller;
+use App\Services\ReservationService;
+use Illuminate\Http\Request;
+
+class RouteReservationController extends Controller
+{
+    public function __construct(
+        private ReservationService $reservationService
+    )
+    {
+    }
+
+    /**
+     * Отклоняет бронирование пользователя в поездке водителя
+     *
+     * @param string $routeId
+     * @param string $reservationId
+     * @return void
+     */
+    public function cancel(string $routeId, string $reservationId): void
+    {
+        $this->reservationService->cancelDriverReservation($routeId, $reservationId);
+    }
+}
