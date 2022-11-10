@@ -2,6 +2,10 @@
 
 namespace App\Http\Resources\Traits;
 
+/**
+ * Implemented from here
+ * @url https://medium.com/hackernoon/hiding-api-fields-dynamically-laravel-5-5-82744f1dd15a
+ */
 trait DynamicHideResource
 {
     /**
