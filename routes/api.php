@@ -26,6 +26,7 @@ Route::post('/phone/verify-code', [PhoneVerificationController::class, 'verifyCo
 Route::middleware('auth:sanctum')->group(static function () {
     Route::post('/routes/{route}/cancel', [RouteController::class, 'cancel']);
     Route::post('/routes/{route}/reservations/{reservation}/cancel', [RouteReservationController::class, 'cancel']);
+    Route::post('/routes/{route}/reservations/{reservation}/confirm', [RouteReservationController::class, 'confirm']);
     Route::apiResource('routes', RouteController::class)->except(['destroy']);
 
     Route::apiResource('reservations', ReservationController::class)->except(['show', 'update']);

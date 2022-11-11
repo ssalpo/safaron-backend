@@ -84,4 +84,22 @@ class ReservationService
 
         $route->update(['status' => Reservation::STATUS_CANCEL_BY_DRIVER]);
     }
+
+    /**
+     * Подтверждает бронирование пассажира
+     *
+     * @param string $routeId
+     * @param string $reservationId
+     * @param array $data
+     * @return void
+     */
+    public function confirmDriverReservation(string $routeId, string $reservationId, array $data = []): void
+    {
+        $route = Reservation::whereStatus(Reservation::STATUS_UNDER_CONSIDERATION)->whereHas(
+            'route', static fn($q) => $q->where('id', $routeId)
+            ->where('user_id', Arr::get($data, 'user_id', auth()->id()))
+        )->findOrFail($reservationId);
+
+        $route->update(['status' => Reservation::STATUS_CONFIRMED]);
+    }
 }

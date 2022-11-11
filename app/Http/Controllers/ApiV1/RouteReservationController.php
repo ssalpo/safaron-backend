@@ -25,4 +25,16 @@ class RouteReservationController extends Controller
     {
         $this->reservationService->cancelDriverReservation($routeId, $reservationId);
     }
+
+    /**
+     * Подтверждает бронирование пассажира
+     *
+     * @param string $routeId
+     * @param string $reservationId
+     * @return void
+     */
+    public function confirm(string $routeId, string $reservationId): void
+    {
+        $this->reservationService->confirmDriverReservation($routeId, $reservationId);
+    }
 }
