@@ -70,6 +70,26 @@ class Route extends Model
         $q->when(request('status'), static fn($q, $v) => $q->whereStatus($v));
     }
 
+    public function scopeMainFilter($q): void
+    {
+        $q->when(
+            request('from') && request('to'),
+            static function ($q) {
+                $places = Place::whereIn('name', [request('from'), request('to')])->pluck('id', 'name');
+
+                $q->whereHas(
+                    'routeLocations',
+                    static fn($q) => $q->whereFromPlaceId($places[request('from')])
+                        ->whereToPlaceId($places[request('to')])
+                );
+            }
+        );
+
+        $q->whereDate('go_time', '>=', now());
+
+        $q->when(request('goDate'), static fn($q, $date) => $q->whereDate('go_time', $date));
+    }
+
     public function car()
     {
         return $this->belongsTo(Car::class);

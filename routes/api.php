@@ -5,6 +5,7 @@ use App\Http\Controllers\ApiV1\PhoneVerificationController;
 use App\Http\Controllers\ApiV1\ProfileController;
 use App\Http\Controllers\ApiV1\ReservationController;
 use App\Http\Controllers\ApiV1\RouteReservationController;
+use App\Http\Controllers\ApiV1\SearchController;
 use App\Http\Controllers\RouteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,3 +39,5 @@ Route::middleware('auth:sanctum')->group(static function () {
         Route::apiResource('cars', CarController::class)->except('show');
     });
 });
+
+Route::get('/search', [SearchController::class, 'search']);
