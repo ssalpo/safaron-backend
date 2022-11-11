@@ -27,7 +27,7 @@ class RouteController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $routes = Route::forUser()
-            ->with(['routeLocations'])
+            ->with(['routeLocations', 'reservationCounts'])
             ->filter()
             ->get();
 
@@ -56,7 +56,7 @@ class RouteController extends Controller
     public function show(string $id): RouteResource
     {
         return RouteResource::make(
-            Route::forUser()->with(['routeLocations', 'reservations.user'])->findOrFail($id)
+            Route::forUser()->with(['routeLocations', 'reservations.user', 'car'])->findOrFail($id)
         );
     }
 

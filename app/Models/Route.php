@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Route extends Model
 {
@@ -69,6 +70,11 @@ class Route extends Model
         $q->when(request('status'), static fn($q, $v) => $q->whereStatus($v));
     }
 
+    public function car()
+    {
+        return $this->belongsTo(Car::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -82,5 +88,12 @@ class Route extends Model
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function reservationCounts()
+    {
+        return $this->hasMany(Reservation::class)
+            ->selectRaw('route_id, sum(number_of_seats) as seats, count(route_id) passengers')
+            ->groupBy('route_id');
     }
 }

@@ -9,7 +9,7 @@ class RouteResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -24,7 +24,19 @@ class RouteResource extends JsonResource
             'description' => $this->description,
             'price' => $this->price,
             'status' => $this->status,
-            'reservations' => ReservationResource::collection($this->whenLoaded('reservations'))
+            'reservations' => ReservationResource::collection($this->whenLoaded('reservations')),
+            'car' => CarResource::make($this->whenLoaded('car')),
+            'reserved' => $this->whenLoaded(
+                'reservationCounts',
+                function () {
+                    $data = $this->reservationCounts->first();
+
+                    return [
+                        'seats' => (int)($data->seats ?? 0),
+                        'passengers' => (int)($data->passengers ?? 0)
+                    ];
+                }
+            )
         ];
     }
 }
