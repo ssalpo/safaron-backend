@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiV1\CarController;
+use App\Http\Controllers\ApiV1\ConversationController;
 use App\Http\Controllers\ApiV1\PhoneVerificationController;
 use App\Http\Controllers\ApiV1\ProfileController;
 use App\Http\Controllers\ApiV1\ReservationController;
@@ -31,6 +32,9 @@ Route::middleware('auth:sanctum')->group(static function () {
     Route::apiResource('routes', RouteController::class)->except(['destroy']);
 
     Route::apiResource('reservations', ReservationController::class)->except(['show', 'update']);
+
+    Route::get('/conversations', [ConversationController::class, 'index']);
+    Route::post('/conversations', [ConversationController::class, 'store']);
 
     Route::prefix('/profile')->group(static function () {
         Route::get('/', [ProfileController::class, 'show']);
