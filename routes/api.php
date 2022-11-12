@@ -2,12 +2,10 @@
 
 use App\Http\Controllers\ApiV1\Account\CarController;
 use App\Http\Controllers\ApiV1\Account\ConversationController;
-use App\Http\Controllers\ApiV1\Account\PhoneVerificationController;
 use App\Http\Controllers\ApiV1\Account\ProfileController;
 use App\Http\Controllers\ApiV1\Account\ReservationController;
 use App\Http\Controllers\ApiV1\Account\RouteController;
 use App\Http\Controllers\ApiV1\Account\RouteReservationController;
-use App\Http\Controllers\ApiV1\Shared\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('/phone/send-verification-code', [PhoneVerificationController::class, 'sendVerificationCode']);
-Route::post('/phone/verify-code', [PhoneVerificationController::class, 'verifyCode']);
 
 Route::middleware('auth:sanctum')->prefix('account')->group(static function () {
     Route::post('/routes/{route}/cancel', [RouteController::class, 'cancel']);
@@ -41,5 +36,3 @@ Route::middleware('auth:sanctum')->prefix('account')->group(static function () {
         Route::apiResource('cars', CarController::class)->except('show');
     });
 });
-
-Route::get('/search', [SearchController::class, 'search']);
