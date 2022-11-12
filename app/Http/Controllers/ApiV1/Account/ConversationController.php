@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1;
+namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiV1\ConversationStoreRequest;
 use App\Http\Resources\ApiV1\ConversationResource;
 use App\Models\Conversation;
 use App\Services\ConversationService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use function auth;
 
 class ConversationController extends Controller
 {

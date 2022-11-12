@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1;
+namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiV1\CarRequest;
 use App\Http\Resources\ApiV1\CarResource;
 use App\Models\Car;
 use App\Services\CarService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CarController extends Controller

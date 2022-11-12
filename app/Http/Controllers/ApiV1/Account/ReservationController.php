@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1;
+namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiV1\ReservationStoreRequest;
 use App\Http\Resources\ApiV1\ReservationResource;
 use App\Models\Reservation;
 use App\Services\ReservationService;
-use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {

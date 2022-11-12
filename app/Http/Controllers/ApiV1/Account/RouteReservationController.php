@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1;
+namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
 use App\Services\ReservationService;
-use Illuminate\Http\Request;
 
 class RouteReservationController extends Controller
 {

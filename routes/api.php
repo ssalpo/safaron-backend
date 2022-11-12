@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\ApiV1\CarController;
-use App\Http\Controllers\ApiV1\ConversationController;
-use App\Http\Controllers\ApiV1\PhoneVerificationController;
-use App\Http\Controllers\ApiV1\ProfileController;
-use App\Http\Controllers\ApiV1\ReservationController;
-use App\Http\Controllers\ApiV1\RouteReservationController;
-use App\Http\Controllers\ApiV1\SearchController;
-use App\Http\Controllers\RouteController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ApiV1\Account\CarController;
+use App\Http\Controllers\ApiV1\Account\ConversationController;
+use App\Http\Controllers\ApiV1\Account\PhoneVerificationController;
+use App\Http\Controllers\ApiV1\Account\ProfileController;
+use App\Http\Controllers\ApiV1\Account\ReservationController;
+use App\Http\Controllers\ApiV1\Account\RouteController;
+use App\Http\Controllers\ApiV1\Account\RouteReservationController;
+use App\Http\Controllers\ApiV1\Account\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/phone/send-verification-code', [PhoneVerificationController::class, 'sendVerificationCode']);
 Route::post('/phone/verify-code', [PhoneVerificationController::class, 'verifyCode']);
 
-Route::middleware('auth:sanctum')->group(static function () {
+Route::middleware('auth:sanctum')->prefix('account')->group(static function () {
     Route::post('/routes/{route}/cancel', [RouteController::class, 'cancel']);
     Route::post('/routes/{route}/reservations/{reservation}/cancel', [RouteReservationController::class, 'cancel']);
     Route::post('/routes/{route}/reservations/{reservation}/confirm', [RouteReservationController::class, 'confirm']);

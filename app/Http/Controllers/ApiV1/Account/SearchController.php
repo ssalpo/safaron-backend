@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1;
+namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiV1\RouteResource;
 use App\Models\Route;
-use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {

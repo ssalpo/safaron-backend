@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1;
+namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiV1\SendVerificationCodeRequest;
@@ -8,6 +8,7 @@ use App\Http\Requests\ApiV1\VerifyCodeRequest;
 use App\Jobs\SendVerificationCodeJob;
 use App\Services\PhoneVerificationService;
 use Illuminate\Http\JsonResponse;
+use function response;
 
 class PhoneVerificationController extends Controller
 {

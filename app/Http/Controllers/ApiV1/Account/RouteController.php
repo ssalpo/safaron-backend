@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiV1\Account;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiV1\Route\RouteCancelRequest;
 use App\Http\Requests\ApiV1\Route\RouteStoreRequest;
 use App\Http\Requests\ApiV1\Route\RouteUpdateRequest;
 use App\Http\Resources\ApiV1\RouteResource;
 use App\Models\Route;
 use App\Services\RouteService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RouteController extends Controller
