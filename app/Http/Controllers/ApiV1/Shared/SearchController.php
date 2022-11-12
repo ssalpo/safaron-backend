@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1\Account;
+namespace App\Http\Controllers\ApiV1\Shared;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiV1\RouteResource;

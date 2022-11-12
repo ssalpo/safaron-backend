@@ -7,7 +7,7 @@ use App\Http\Controllers\ApiV1\Account\ProfileController;
 use App\Http\Controllers\ApiV1\Account\ReservationController;
 use App\Http\Controllers\ApiV1\Account\RouteController;
 use App\Http\Controllers\ApiV1\Account\RouteReservationController;
-use App\Http\Controllers\ApiV1\Account\SearchController;
+use App\Http\Controllers\ApiV1\Shared\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
