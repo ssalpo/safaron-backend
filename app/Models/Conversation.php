@@ -27,6 +27,14 @@ class Conversation extends Model
         'read' => 'boolean'
     ];
 
+    public function scopeForUser($q, string $id = null): void
+    {
+        $id = $id ?? auth()->id();
+
+        $q->where('sender_id', $id)
+            ->orWhere('receiver_id', $id);
+    }
+
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');

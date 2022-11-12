@@ -33,8 +33,7 @@ Route::middleware('auth:sanctum')->group(static function () {
 
     Route::apiResource('reservations', ReservationController::class)->except(['show', 'update']);
 
-    Route::get('/conversations', [ConversationController::class, 'index']);
-    Route::post('/conversations', [ConversationController::class, 'store']);
+    Route::apiResource('conversations', ConversationController::class)->except(['update', 'destroy']);
 
     Route::prefix('/profile')->group(static function () {
         Route::get('/', [ProfileController::class, 'show']);

@@ -8,6 +8,7 @@ use App\Http\Resources\ApiV1\ConversationResource;
 use App\Models\Conversation;
 use App\Services\ConversationService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ConversationController extends Controller
 {
@@ -17,24 +18,48 @@ class ConversationController extends Controller
     {
     }
 
-    public function index()
+    /**
+     * Возвращает список собеседников с которыми общался пользователь
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function index(): AnonymousResourceCollection
     {
         $lastIds = $this->conversationService->getLastRecorOfEveryUser(auth()->id());
 
         return ConversationResource::collection(
-            Conversation::whereIn('id', $lastIds)
-                ->with(['sender', 'receiver'])
-                ->get()
+            Conversation::whereIn('id', $lastIds)->get()
         );
     }
 
-    public function store(ConversationStoreRequest $request)
+    /**
+     * Отправляет сообщение пользователю
+     *
+     * @param ConversationStoreRequest $request
+     * @return ConversationResource
+     */
+    public function store(ConversationStoreRequest $request): ConversationResource
     {
         return ConversationResource::make(
             $this->conversationService->store(
                 $request->message,
                 $request->receiver_id
             )
+        );
+    }
+
+    /**
+     * Возвращает весь список сообщений по конкретному собеседнику
+     *
+     * @param string $userId
+     * @return AnonymousResourceCollection
+     */
+    public function show(string $userId): AnonymousResourceCollection
+    {
+        $this->conversationService->readMessages(auth()->id());
+
+        return ConversationResource::collection(
+            Conversation::forUser($userId)->orderBy('created_at', 'DESC')->paginate(30)
         );
     }
 }

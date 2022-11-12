@@ -33,10 +33,17 @@ class ConversationService
     public function readMessages(string $receiverId): void
     {
         Conversation::whereReceiverId($receiverId)
+            ->where('read', false)
             ->update(['read' => true, 'read_at' => now()]);
     }
 
-    public function getLastRecorOfEveryUser(string $userId)
+    /**
+     * Возвращает идентификаторы всех собеседников с которыми пользователь когда-либо общался
+     *
+     * @param string $userId
+     * @return \Illuminate\Support\Collection
+     */
+    public function getLastRecorOfEveryUser(string $userId): \Illuminate\Support\Collection
     {
         return DB::table('conversations')
             ->selectRaw('MAX(id) as lastId')
