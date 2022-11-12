@@ -16,6 +16,11 @@ class ReservationController extends Controller
     {
     }
 
+    /**
+     * Возвращает список бронирований
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         return ReservationResource::collection(

@@ -95,9 +95,9 @@ class Route extends Model
         return $this->belongsTo(Car::class);
     }
 
-    public function user()
+    public function driver()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function routeLocations()

@@ -20,3 +20,4 @@ Route::post('/phone/send-verification-code', [PhoneVerificationController::class
 Route::post('/phone/verify-code', [PhoneVerificationController::class, 'verifyCode']);
 
 Route::get('/routes', [RouteController::class, 'index']);
+Route::get('/routes/{route}', [RouteController::class, 'show']);

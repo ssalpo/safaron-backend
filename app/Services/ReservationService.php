@@ -102,4 +102,12 @@ class ReservationService
 
         $route->update(['status' => Reservation::STATUS_CONFIRMED]);
     }
+
+    public function existsForPassengerInRoute(string $routeId, string $userId)
+    {
+        return Reservation::whereRouteId($routeId)
+            ->whereUserId($userId)
+            ->whereStatus(Reservation::STATUS_CONFIRMED)
+            ->exists();
+    }
 }

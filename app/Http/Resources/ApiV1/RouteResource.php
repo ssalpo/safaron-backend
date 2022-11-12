@@ -26,7 +26,7 @@ class RouteResource extends JsonResource
             'status' => $this->status,
             'reservations' => ReservationResource::collection($this->whenLoaded('reservations')),
             'car' => CarResource::make($this->whenLoaded('car')),
-            'user' => UserResource::make($this->whenLoaded('user'))->hide(['phone']),
+            'driver' => UserResource::make($this->whenLoaded('driver'))->hide(['phone']),
             'reserved' => $this->whenLoaded(
                 'reservationCounts',
                 function () {
