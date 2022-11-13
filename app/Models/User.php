@@ -25,6 +25,8 @@ class User extends Authenticatable
         'phone',
         'birthday',
         'gender',
+        'review_rating',
+        'review_total',
         'phone_verification_code',
         'phone_verified_at',
         'email',

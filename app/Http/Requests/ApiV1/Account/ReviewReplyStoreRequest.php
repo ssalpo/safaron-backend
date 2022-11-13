@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ApiV1;
+namespace App\Http\Requests\ApiV1\Account;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CarRequest extends FormRequest
+class ReviewReplyStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class CarRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:255',
-            'photo' => 'nullable|mimes:jpeg,jpg|max:3072',
-            'number_of_seats' => 'nullable|numeric|min:4|max:10'
+            'reply' => 'required'
         ];
     }
 }

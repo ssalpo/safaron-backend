@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('routes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamp('go_time')->comment('Дата и время поездки');
+            $table->integer('travel_time')->default(300)->comment("Время в пути (в минутах)");
             $table->foreignUuid('user_id')->constrained();
             $table->foreignUuid('car_id')->constrained();
             $table->tinyInteger('free_places')->default(1)->comment('Количество свободных мест');
@@ -24,8 +25,8 @@ return new class extends Migration
             $table->text('description')->nullable()->comment('Комментарий к поездке');
             $table->integer('price')->default(0)->comment('Цена поездки');
             $table->tinyInteger('status')->default(\App\Models\Route::STATUS_ACTIVE);
-            $table->text('cancel_reason')->nullable();
-            $table->text('cancel_description')->nullable();
+            $table->text('cancel_reason')->nullable()->comment('Причина отмены');
+            $table->text('cancel_description')->nullable()->comment('Описание причины отмены');
             $table->timestamps();
             $table->softDeletes();
         });

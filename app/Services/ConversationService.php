@@ -17,6 +17,9 @@ class ConversationService
      */
     public function store(string $message, string $receiverId, string $senderId = null): Conversation
     {
+        // @TODO Добавить проверку наличия поездки и отправителя
+        // @TODO или если есть хотя бы одно сообщение, то проверку поездку пропускаем
+
         return Conversation::create([
             'message' => $message,
             'receiver_id' => $receiverId,
@@ -43,7 +46,7 @@ class ConversationService
      * @param string $userId
      * @return \Illuminate\Support\Collection
      */
-    public function getLastRecorOfEveryUser(string $userId): \Illuminate\Support\Collection
+    public function getLastRecordOfEveryUser(string $userId): \Illuminate\Support\Collection
     {
         return DB::table('conversations')
             ->selectRaw('MAX(id) as lastId')

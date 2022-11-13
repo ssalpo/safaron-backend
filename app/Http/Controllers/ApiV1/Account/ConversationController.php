@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiV1\ConversationStoreRequest;
+use App\Http\Requests\ApiV1\Account\ConversationStoreRequest;
 use App\Http\Resources\ApiV1\ConversationResource;
 use App\Models\Conversation;
 use App\Services\ConversationService;
@@ -25,7 +25,7 @@ class ConversationController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        $lastIds = $this->conversationService->getLastRecorOfEveryUser(auth()->id());
+        $lastIds = $this->conversationService->getLastRecordOfEveryUser(auth()->id());
 
         return ConversationResource::collection(
             Conversation::whereIn('id', $lastIds)->get()

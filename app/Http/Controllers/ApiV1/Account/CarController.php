@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiV1\CarRequest;
+use App\Http\Requests\ApiV1\Account\CarRequest;
 use App\Http\Resources\ApiV1\CarResource;
 use App\Models\Car;
 use App\Services\CarService;

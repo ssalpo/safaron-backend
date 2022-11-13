@@ -43,7 +43,7 @@ class RouteService
 
         $dataGoTime = Carbon::parse($data['go_time']);
 
-        // Менять можно только время поездки, поэтому делаем проверя и при необходимости меняем
+        // Менять можно только время поездки, поэтому делаем проверку и при необходимости меняем
         if (!$dataGoTime->eq($route->go_time)) {
             $data['go_time'] = $route->go_time->setTime(
                 $dataGoTime->format('H'), $dataGoTime->format('i')
@@ -69,5 +69,37 @@ class RouteService
         if ($route->isCancel) {
             $route->update(['status' => Route::STATUS_CANCELED] + $data);
         }
+    }
+
+    /**
+     * Проверяет, прошло ли n суток после окончания поездки
+     *
+     * @param string $routeId
+     * @param int $days
+     * @param string|null $userId
+     * @return bool
+     */
+    public function daysHavePassed(string $routeId, int $days, string $userId = null): bool
+    {
+        $route = Route::checkTravelEnd()
+            ->when($userId, static fn($q, $v) => $q->hasReservationForUser($v))
+            ->find($routeId);
+
+        return $route && $route->go_time->startOfDay()->diffInDays(now()->startOfDay()) >= $days;
+    }
+
+    /**
+     * Проверяет, закончилась ли поездка
+     *
+     * @param string $routeId
+     * @param string|null $userId
+     * @return bool
+     */
+    public function isTravelEnd(string $routeId, string $userId = null): bool
+    {
+        return Route::checkTravelEnd()
+            ->whereId($routeId)
+            ->when($userId, static fn($q, $v) => $q->hasReservationForUser($v))
+            ->exists();
     }
 }

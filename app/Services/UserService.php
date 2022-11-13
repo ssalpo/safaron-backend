@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserService
@@ -50,6 +51,31 @@ class UserService
         }
 
         $user->update($data);
+
+        return $user;
+    }
+
+    /**
+     * Обновляет счетчики рейтинга у пользователя
+     *
+     * @param string $userId
+     * @return User
+     */
+    public function recalculateReviewCounts(string $userId): User
+    {
+        $review = Review::select(DB::raw('user_id, AVG(rating) as rating, COUNT(id) as reviews'))
+            ->where('user_id', $userId)
+            ->groupBy('user_id')
+            ->first();
+
+        $user = User::findOrFail($userId);
+
+        if ($review) {
+            $user->update([
+                'review_rating' => $review->rating ?? 0,
+                'review_total' => $review->reviews ?? 0,
+            ]);
+        }
 
         return $user;
     }

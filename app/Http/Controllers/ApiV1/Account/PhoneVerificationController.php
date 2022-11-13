@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiV1\SendVerificationCodeRequest;
+use App\Http\Requests\ApiV1\Account\SendVerificationCodeRequest;
 use App\Http\Requests\ApiV1\VerifyCodeRequest;
 use App\Jobs\SendVerificationCodeJob;
 use App\Services\PhoneVerificationService;

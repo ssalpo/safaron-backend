@@ -27,6 +27,7 @@ class Route extends Model
 
     protected $fillable = [
         'go_time',
+        'travel_time',
         'user_id',
         'car_id',
         'free_places',
@@ -88,6 +89,16 @@ class Route extends Model
         $q->whereDate('go_time', '>=', now());
 
         $q->when(request('goDate'), static fn($q, $date) => $q->whereDate('go_time', $date));
+    }
+
+    public function scopeCheckTravelEnd($q)
+    {
+        $q->whereRaw('NOW() >= DATE_ADD(go_time, INTERVAL travel_time MINUTE)');
+    }
+
+    public function scopeHasReservationForUser($q, string $userId)
+    {
+        $q->whereHas('reservations', static fn($q) => $q->whereUserId($userId));
     }
 
     public function car()

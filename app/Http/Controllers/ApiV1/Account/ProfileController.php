@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiV1\Account;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiV1\ProfileUpdateRequest;
+use App\Http\Requests\ApiV1\Account\ProfileUpdateRequest;
 use App\Http\Resources\ApiV1\UserResource;
 use App\Services\UserService;
 use Illuminate\Http\Request;

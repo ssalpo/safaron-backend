@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\ApiV1\Route;
+namespace App\Http\Requests\ApiV1\Account\Route;
 
 use App\Models\Route;
 use Illuminate\Foundation\Http\FormRequest;

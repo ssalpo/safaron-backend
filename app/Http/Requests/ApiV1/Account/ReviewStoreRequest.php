@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ApiV1;
+namespace App\Http\Requests\ApiV1\Account;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SendVerificationCodeRequest extends FormRequest
+class ReviewStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class SendVerificationCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'required|phone:TJ,mobile'
+            'route_id' => 'required|uuid',
+            'user_id' => 'required|uuid',
+            'rating' => 'required|numeric|digits_between:1,5',
+            'content' => 'required|min:10|max:300'
         ];
     }
 }

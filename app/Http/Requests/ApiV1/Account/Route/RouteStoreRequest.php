@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\ApiV1\Route;
+namespace App\Http\Requests\ApiV1\Account\Route;
 
 use App\Rules\IsUserCar;
 use Illuminate\Foundation\Http\FormRequest;

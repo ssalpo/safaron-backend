@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiV1\Account\CarController;
 use App\Http\Controllers\ApiV1\Account\ConversationController;
 use App\Http\Controllers\ApiV1\Account\ProfileController;
 use App\Http\Controllers\ApiV1\Account\ReservationController;
+use App\Http\Controllers\ApiV1\Account\ReviewController;
 use App\Http\Controllers\ApiV1\Account\RouteController;
 use App\Http\Controllers\ApiV1\Account\RouteReservationController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ Route::middleware('auth:sanctum')->prefix('account')->group(static function () {
     Route::apiResource('routes', RouteController::class)->except(['destroy']);
 
     Route::apiResource('reservations', ReservationController::class)->except(['show', 'update']);
+
+    Route::post('/reviews', [ReviewController::class, 'store']);
+    Route::post('/reviews/{review}/reply', [ReviewController::class, 'reply']);
 
     Route::apiResource('conversations', ConversationController::class)->except(['update', 'destroy']);
 

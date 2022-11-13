@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ApiV1;
+namespace App\Http\Requests\ApiV1\Account;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ConversationStoreRequest extends FormRequest
+class SendVerificationCodeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class ConversationStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'required|min:1|max:300',
-            'receiver_id' => 'required|uuid|exists:users,id'
+            'phone' => 'required|phone:TJ,mobile'
         ];
     }
 }
